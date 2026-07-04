@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class I18nManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(FMLTranslations.class);
     private static final Gson GSON = new Gson();
-    private static final String DEFAULT_LOCALE = "en_us";
+    private static final String DEFAULT_LOCALE = Locale.getDefault().toString().toLowerCase(Locale.ROOT);
 
     static final Map<String, String> DEFAULT_TRANSLATIONS = Collections.unmodifiableMap(loadTranslations(DEFAULT_LOCALE));
 
@@ -35,8 +36,10 @@ public class I18nManager {
                 return GSON.fromJson(reader, new TypeToken<>() {});
             } catch (IOException e) {
                 LOGGER.error("Failed to load translations for locale {}", language, e);
-                return Map.of();
             }
+        }
+        if (!"en_us".equals(language)) {
+            return loadTranslations("en_us");
         }
         return Map.of();
     }
