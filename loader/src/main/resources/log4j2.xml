@@ -27,10 +27,10 @@
         </TerminalConsole>
         <Queue name="ServerGuiConsole" ignoreExceptions="true">
             <PatternLayout>
-                <LoggerNamePatternSelector defaultPattern="[%d{HH:mm:ss}] [%t/%level] [%c{2.}/%markerSimpleName]: %minecraftFormatting{%msg{nolookup}}{strip}%n">
+                <LoggerNamePatternSelector defaultPattern="[%d{HH:mm:ss}] [%t/%level] [%c{2.}/%markerSimpleName]: %replace{%msg}{(?i)(\u00A7[0-9A-FK-OR]|\e\[[\d;]*[^\d;])}{}%n%xEx{full}">
                     <!-- don't include the full logger name for Mojang's logs since they use full class names and it's very verbose -->
-                    <PatternMatch key="net.minecraft." pattern="[%d{HH:mm:ss}] [%t/%level] [minecraft/%logger{1}]: %minecraftFormatting{%msg{nolookup}}{strip}%n"/>
-                    <PatternMatch key="com.mojang." pattern="[%d{HH:mm:ss}] [%t/%level] [mojang/%logger{1}]: %minecraftFormatting{%msg{nolookup}}{strip}%n"/>
+                    <PatternMatch key="net.minecraft." pattern="[%d{HH:mm:ss}] [%t/%level] [minecraft/%logger{1}]: %replace{%msg}{(?i)(\u00A7[0-9A-FK-OR]|\e\[[\d;]*[^\d;])}{}%n%xEx{full}"/>
+                    <PatternMatch key="com.mojang." pattern="[%d{HH:mm:ss}] [%t/%level] [mojang/%logger{1}]: %replace{%msg}{(?i)(\u00A7[0-9A-FK-OR]|\e\[[\d;]*[^\d;])}{}%n%xEx{full}"/>
                 </LoggerNamePatternSelector>
             </PatternLayout>
         </Queue>
